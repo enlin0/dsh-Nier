@@ -1,0 +1,629 @@
+/*
+ * NieR:Automata / YoRHa boot splash — styles.
+ *
+ * Everything is scoped under #nier-splash. Sizing is viewport-relative so the
+ * overlay holds its proportions from a 720p laptop panel to a 4K display.
+ * Above ~1560px the type stops growing so it keeps the reference's density.
+ */
+
+#nier-splash {
+  --n-accent: #b3272d;
+  --n-p: 0;
+  --n-k: 1;
+  --n-ink: #f2ece3;
+  --n-sans: "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+  --n-geo: "Century Gothic", "Futura", "Segoe UI Light", "Segoe UI", "Helvetica Neue", sans-serif;
+  --n-serif: "Constantia", "Georgia", "Times New Roman", serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: block;
+  overflow: hidden;
+  background: #191919;
+  color: var(--n-ink);
+  font-family: var(--n-sans);
+  opacity: 1;
+  -webkit-font-smoothing: antialiased;
+  pointer-events: auto;
+  contain: layout style paint;
+}
+
+/* The field is opaque from the first paint so the shell never bleeds through;
+ * only the content fades up. */
+#nier-splash.is-playing .n-scene {
+  animation: n-fade-in 460ms ease-out forwards;
+}
+
+#nier-splash *,
+#nier-splash *::before,
+#nier-splash *::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------- background */
+
+#nier-splash .n-field,
+#nier-splash .n-scan,
+#nier-splash .n-vig {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Fine dot matrix plus a coarser panel grid, echoing the game's etched glass. */
+#nier-splash .n-field {
+  background-image:
+    repeating-linear-gradient(to right, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(to right, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 44px),
+    radial-gradient(120% 100% at 46% 44%, #2b2a28 0%, #1d1d1c 46%, #131313 100%);
+  opacity: 0.9;
+}
+
+/* Scanlines + a slow rolling band: the CRT the reference was filmed off. */
+#nier-splash .n-scan {
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.34) 0 1px, rgba(255, 255, 255, 0.012) 1px 2px, transparent 2px 3px),
+    linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.045) 48%, transparent 60%);
+  background-size: 100% 3px, 100% 46vh;
+  background-repeat: repeat, no-repeat;
+  animation: n-roll 7.5s linear infinite;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+}
+
+#nier-splash.no-scan .n-scan {
+  display: none;
+}
+
+#nier-splash .n-vig {
+  background:
+    radial-gradient(120% 120% at 50% 50%, transparent 38%, rgba(0, 0, 0, 0.34) 74%, rgba(0, 0, 0, 0.72) 100%);
+}
+
+/* ------------------------------------------------------------ YoRHa mark */
+
+#nier-splash .n-mark {
+  position: absolute;
+  left: 48%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.015em;
+  color: #d9d3c8;
+  opacity: 0;
+  animation: n-mark-in 1400ms ease-out 260ms forwards;
+  pointer-events: none;
+  filter: blur(0.25px);
+}
+
+#nier-splash .n-e {
+  width: clamp(90px, 12.4vw, 280px);
+  height: auto;
+  flex: none;
+  color: inherit;
+}
+
+#nier-splash .n-e-solid {
+  fill: currentColor;
+  fill-opacity: 0.62;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+#nier-splash .n-e-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.9;
+}
+
+#nier-splash .n-e-rivets circle {
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+#nier-splash .n-lockup {
+  flex: 0 0 auto;
+  min-width: 0;
+  transform: translateY(-0.16em);
+  margin-left: 0.06em;
+}
+
+#nier-splash .n-word {
+  font-family: var(--n-geo);
+  font-size: clamp(46px, 9.7vw, 220px);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: inherit;
+}
+
+#nier-splash .n-motto {
+  margin-top: 0.55em;
+  padding-left: 0.35em;
+  font-family: var(--n-serif);
+  font-size: clamp(10px, 1.15vw, 27px);
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+  color: inherit;
+  opacity: 0.9;
+}
+
+/* ----------------------------------------------------------------- stage */
+
+/* Everything that participates in the CRT power-off lives in one wrapper, so
+ * the mark and the HUD squash together instead of drifting apart. */
+#nier-splash .n-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+#nier-splash .n-stage {
+  position: absolute;
+  inset: 0;
+  padding: 5.4vh 5.7vw;
+}
+
+#nier-splash .n-hud {
+  position: absolute;
+  color: var(--n-ink);
+}
+
+#nier-splash .n-tl {
+  top: 5.6vh;
+  left: 5.7vw;
+  width: min(46vw, 760px);
+}
+
+#nier-splash .n-tr {
+  top: 5.6vh;
+  right: 5.7vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9vh;
+  text-align: right;
+}
+
+#nier-splash .n-bl {
+  bottom: 5.2vh;
+  left: 5.7vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7vh;
+}
+
+#nier-splash .n-br {
+  bottom: 5.2vh;
+  right: 5.7vw;
+}
+
+/* Red-fringed white: chromatic aberration from a cheap CRT / the in-game UI. */
+#nier-splash .n-reading {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  opacity: 0;
+  animation: n-rise 700ms ease-out 80ms forwards;
+}
+
+#nier-splash .n-ld {
+  font-family: var(--n-geo);
+  font-size: clamp(30px, 3.6vw, 84px);
+  font-weight: 300;
+  letter-spacing: 0.008em;
+  line-height: 1;
+  color: #fcf8f2;
+  text-shadow:
+    -3.4px 1px 0 rgba(178, 32, 38, 0.72),
+    2.2px 0 0 rgba(80, 150, 160, 0.16),
+    0 0 16px rgba(190, 60, 48, 0.24);
+}
+
+#nier-splash .n-dots {
+  display: inline-flex;
+  gap: 0.12em;
+  margin-left: 0.14em;
+  transform: translateY(-1.55em);
+  font-style: normal;
+}
+
+#nier-splash .n-dots i {
+  font-style: normal;
+  font-size: clamp(11px, 1vw, 18px);
+  line-height: 1;
+  opacity: 0.25;
+  animation: n-dot 1.5s steps(1) infinite;
+}
+
+#nier-splash .n-dots i:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+#nier-splash .n-dots i:nth-child(3) {
+  animation-delay: 1s;
+}
+
+#nier-splash .n-sub {
+  margin-left: 0.5em;
+  font-family: var(--n-sans);
+  font-size: clamp(12px, 1.15vw, 26px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: #f6f0e8;
+  text-shadow:
+    -2.2px 0.6px 0 rgba(178, 32, 38, 0.64),
+    0 0 12px rgba(190, 60, 48, 0.22);
+}
+
+#nier-splash .n-sub.is-raw {
+  color: var(--n-accent);
+  text-shadow: 0 0 12px rgba(179, 39, 45, 0.7);
+}
+
+/* ------------------------------------------------------------- self-check */
+
+#nier-splash .n-log {
+  margin: 4.1vh 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(11px, 0.92vw, 21px);
+  font-weight: 500;
+  line-height: 2.02;
+  letter-spacing: 0.075em;
+  color: #f6f0e7;
+  max-height: 74vh;
+  overflow: hidden;
+}
+
+#nier-splash .n-row {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  text-shadow:
+    -1.9px 0 0 rgba(180, 26, 32, 0.72),
+    1.2px 0 0 rgba(80, 150, 160, 0.12),
+    0 0 10px rgba(190, 55, 48, 0.26);
+  animation: n-row-in 260ms ease-out both;
+}
+
+#nier-splash .n-row.is-warn {
+  color: #e0554a;
+  text-shadow:
+    -1.4px 0 0 rgba(120, 16, 20, 0.8),
+    0 0 12px rgba(200, 45, 40, 0.45);
+}
+
+#nier-splash .n-row-t {
+  display: inline-block;
+}
+
+#nier-splash .n-cursor {
+  display: inline-block;
+  width: 0.52em;
+  height: 2px;
+  margin-left: 0.16em;
+  background: currentColor;
+  transform: translateY(-0.18em);
+  animation: n-blink 1.05s steps(1) infinite;
+}
+
+/* ------------------------------------------------------------------ meter */
+
+#nier-splash .n-spin {
+  width: clamp(26px, 2.3vw, 42px);
+  height: auto;
+  color: var(--n-accent);
+  animation: n-turn 5.5s linear infinite;
+}
+
+#nier-splash .n-spin-track,
+#nier-splash .n-spin-a,
+#nier-splash .n-spin-b {
+  fill: none;
+}
+
+#nier-splash .n-spin-track {
+  stroke: rgba(240, 235, 226, 0.22);
+  stroke-width: 1.4;
+}
+
+#nier-splash .n-spin-a {
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+#nier-splash .n-spin-b {
+  stroke: rgba(240, 235, 226, 0.55);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  animation: n-turn 3.1s linear infinite reverse;
+  transform-origin: 32px 32px;
+}
+
+#nier-splash .n-meter {
+  font-family: var(--n-geo);
+  font-size: clamp(11px, 0.82vw, 15px);
+  letter-spacing: 0.2em;
+  color: #e9e2d8;
+  font-variant-numeric: tabular-nums;
+  text-shadow: -1px 0 0 rgba(178, 32, 38, 0.5);
+}
+
+#nier-splash .n-meter .n-unit {
+  opacity: 0.55;
+  margin-left: 0.1em;
+}
+
+#nier-splash .n-tag {
+  font-size: clamp(8px, 0.6vw, 11px);
+  letter-spacing: 0.34em;
+  opacity: 0.42;
+}
+
+#nier-splash .n-serial {
+  font-size: clamp(8px, 0.62vw, 11px);
+  letter-spacing: 0.28em;
+  opacity: 0.4;
+}
+
+#nier-splash .n-brand {
+  font-size: clamp(8px, 0.58vw, 10px);
+  letter-spacing: 0.42em;
+  color: var(--n-accent);
+  opacity: 0.6;
+}
+
+#nier-splash .n-clock {
+  font-size: clamp(8px, 0.62vw, 11px);
+  letter-spacing: 0.24em;
+  opacity: 0.38;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------- effects */
+
+#nier-splash .n-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(240, 235, 226, 0.07);
+}
+
+#nier-splash .n-bar > i {
+  display: block;
+  height: 100%;
+  width: calc(var(--n-p) * 100%);
+  background: var(--n-accent);
+  box-shadow: 0 0 12px rgba(179, 39, 45, 0.75);
+  transition: width 120ms linear;
+}
+
+#nier-splash .n-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: n-flash 900ms ease-out 1;
+}
+
+#nier-splash .n-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 5.2vh;
+  transform: translateX(-50%);
+  font-size: clamp(7px, 0.56vw, 10px);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(240, 235, 226, 0.4);
+  opacity: 0;
+  animation: n-hint-in 900ms ease-out 2200ms forwards;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#nier-splash.is-ready .n-hint {
+  animation: none;
+  opacity: 0;
+  transition: opacity 240ms;
+}
+
+/* ------------------------------------------------------------------- exits */
+
+#nier-splash[data-exit="fade"].is-leaving {
+  animation: n-fade-out 460ms ease-in forwards;
+}
+
+#nier-splash[data-exit="collapse"].is-leaving .n-scene {
+  animation: n-collapse 620ms cubic-bezier(0.72, 0, 0.28, 1) forwards;
+}
+
+#nier-splash[data-exit="collapse"].is-leaving .n-hint {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+#nier-splash[data-exit="collapse"].is-leaving .n-flash {
+  animation: n-flash-out 620ms ease-out forwards;
+}
+
+#nier-splash[data-exit="glitch"].is-leaving .n-flash {
+  animation: n-flash-glitch 700ms steps(2) forwards;
+}
+
+#nier-splash[data-exit="glitch"].is-leaving .n-scan {
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+#nier-splash .n-slice {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 90ms steps(2);
+  filter: saturate(1.5) contrast(1.15);
+}
+
+#nier-splash .n-slice .n-mark {
+  animation: none;
+  opacity: 0.155;
+}
+
+#nier-splash .n-slice .n-reading,
+#nier-splash .n-slice .n-row {
+  animation: none;
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------- animation */
+
+@keyframes n-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes n-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes n-roll {
+  from { background-position: 0 0, 0 -46vh; }
+  to { background-position: 0 3px, 0 100vh; }
+}
+
+@keyframes n-mark-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.985); }
+  to { opacity: 0.155; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes n-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes n-row-in {
+  from { opacity: 0; transform: translateX(-5px); filter: blur(1.2px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes n-dot {
+  0%, 60% { opacity: 0.22; }
+  61%, 100% { opacity: 0.95; }
+}
+
+@keyframes n-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes n-turn {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes n-flash {
+  0% { opacity: 0; }
+  6% { opacity: 0.16; }
+  100% { opacity: 0; }
+}
+
+@keyframes n-flash-out {
+  0% { opacity: 0; }
+  18% { opacity: 0.55; }
+  40% { opacity: 0.12; }
+  100% { opacity: 0; }
+}
+
+@keyframes n-flash-glitch {
+  0% { opacity: 0; }
+  10% { opacity: 0.5; }
+  14% { opacity: 0; }
+  30% { opacity: 0.25; }
+  36% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes n-hint-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes n-collapse {
+  0% { transform: scale(1, 1); opacity: 1; }
+  22% { transform: scale(1.012, 1.04); opacity: 1; }
+  44% { transform: scale(1.012, 0.58); opacity: 1; }
+  64% { transform: scale(1.008, 0.07); opacity: 1; }
+  76% { transform: scale(0.6, 0.018); opacity: 1; }
+  100% { transform: scale(0.02, 0.003); opacity: 0; }
+}
+
+/* --------------------------------------------------------------- a11y */
+
+@media (prefers-reduced-motion: reduce) {
+  #nier-splash .n-scan,
+  #nier-splash .n-flash,
+  #nier-splash .n-spin,
+  #nier-splash .n-spin-b,
+  #nier-splash .n-dots i,
+  #nier-splash .n-hint {
+    animation: none;
+  }
+
+  #nier-splash .n-mark {
+    animation: none;
+    opacity: 0.155;
+  }
+
+  #nier-splash .n-reading,
+  #nier-splash .n-row {
+    animation: none;
+    opacity: 1;
+  }
+
+  #nier-splash .n-hint {
+    opacity: 1;
+  }
+}
+
+#nier-splash.is-reduced .n-scene {
+  opacity: 1;
+  animation: none;
+}
+
+#nier-splash.is-reduced .n-scan,
+#nier-splash.is-reduced .n-flash,
+#nier-splash.is-reduced .n-spin,
+#nier-splash.is-reduced .n-spin-b,
+#nier-splash.is-reduced .n-dots i {
+  animation: none;
+}
+
+#nier-splash.is-reduced .n-mark {
+  animation: none;
+  opacity: 0.155;
+}
+
+#nier-splash.is-reduced .n-reading,
+#nier-splash.is-reduced .n-row {
+  animation: none;
+  opacity: 1;
+}

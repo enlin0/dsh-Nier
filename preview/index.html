@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dsh-nier-splash · preview</title>
+<style>
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: #0f1012;
+    color: #c9cdd4;
+    font: 14px/1.6 "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+  }
+  #root { height: 100%; }
+  .mock { display: flex; height: 100%; }
+  .mock-side {
+    width: 260px; flex: none; padding: 18px;
+    border-right: 1px solid #23262b; background: #14161a;
+  }
+  .mock-side b { display: block; font-size: 12px; letter-spacing: .18em; color: #6b7280; margin-bottom: 14px; }
+  .mock-side p { margin: 0 0 10px; font-size: 12px; color: #7d8590; }
+  .mock-main { flex: 1; padding: 26px 30px; }
+  .mock-main h1 { font-size: 15px; font-weight: 600; letter-spacing: .04em; margin: 0 0 6px; color: #dcdfe4; }
+  .mock-main small { color: #6b7280; }
+</style>
+</head>
+<body>
+<!-- Stand-in for the Harness shell: the splash waits for #root to fill in. -->
+<div id="root">
+  <div class="mock">
+    <div class="mock-side">
+      <b>DEEPSEEK HARNESS</b>
+      <p>新对话</p>
+      <p>会话记录</p>
+      <p>插件</p>
+      <p>设置</p>
+    </div>
+    <div class="mock-main">
+      <h1>dsh-nier-splash</h1>
+      <small>preview stand-in for the app shell</small>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="../lib/splash.css">
+<script>
+  // Same contract the plugin's cordis hook produces: config first, then the
+  // splash script runs and reads globalThis.__NIER_SPLASH__.
+  var q = new URLSearchParams(location.search);
+  globalThis.__NIER_SPLASH__ = {
+    enabled: true,
+    duration: Number(q.get('duration') || 4500),
+    maxWait: Number(q.get('maxWait') || 8000),
+    exit: q.get('exit') || 'collapse',
+    lang: q.get('lang') || 'zh',
+    skippable: true,
+    replayOnReload: q.get('replay') !== '0',
+    scanlines: q.get('scanlines') !== '0',
+    accent: q.get('accent') || '#b3272d',
+    serial: q.get('serial') || 'YORHA-OS / UNIT 2B-042',
+    reducedMotion: q.get('reduced') === '1' ? true : undefined,
+  };
+
+  if (q.get('debug') === '1') {
+    var dbg = document.createElement('div');
+    dbg.id = 'dbg';
+    dbg.style.cssText = 'position:fixed;left:50%;top:0;transform:translateX(-50%);z-index:2147483600;background:#000;color:#0f0;font:12px/1.5 monospace;padding:4px 8px;white-space:pre';
+    document.body.append(dbg);
+    setInterval(function () {
+      var r = document.getElementById('nier-splash');
+      dbg.textContent = 't=' + Math.round(performance.now())
+        + '  op=' + (r ? getComputedStyle(r).opacity : '-')
+        + '  rows=' + document.querySelectorAll('.n-row').length
+        + '  p=' + (r ? getComputedStyle(r).getPropertyValue('--n-p').trim() : '-');
+    }, 100);
+  }
+</script>
+<script src="../lib/splash.js"></script>
+</body>
+</html>

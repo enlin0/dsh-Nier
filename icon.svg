@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="dsh-nier-splash">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#232323"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <pattern id="grid" width="12" height="12" patternUnits="userSpaceOnUse">
+      <path d="M12 0H0v12" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="96" fill="url(#grid)"/>
+  <g transform="translate(106 44) scale(1.24)" fill="none" stroke="#e9e3d9" stroke-width="2.1"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 8L128 118L122 178L118 178L112 118Z" fill="#e9e3d9" fill-opacity="0.75"/>
+    <path d="M120 202L124 250L120 294L116 250Z" fill="#e9e3d9" fill-opacity="0.75"/>
+    <path d="M100 176L88 288L94 292L106 190Z" fill="#e9e3d9" fill-opacity="0.75"/>
+    <path d="M140 176L152 288L146 292L134 190Z" fill="#e9e3d9" fill-opacity="0.75"/>
+    <path d="M120 8L120 178"/>
+    <path d="M120 152C104 147 86 147 72 152"/>
+    <path d="M120 152C136 147 154 147 168 152"/>
+    <path d="M98 142C74 128 46 132 26 154C52 160 78 166 98 176Z"/>
+    <path d="M142 142C166 128 194 132 214 154C188 160 162 166 142 176Z"/>
+    <path d="M96 152C78 144 58 146 44 154"/>
+    <path d="M144 152C162 144 182 146 196 154"/>
+    <circle cx="120" cy="188" r="14"/>
+    <circle cx="120" cy="188" r="5" fill="#b3272d" stroke="#b3272d"/>
+  </g>
+  <rect x="136" y="440" width="240" height="7" rx="3" fill="#2a2a2a"/>
+  <rect x="136" y="440" width="182" height="7" rx="3" fill="#b3272d"/>
+</svg>

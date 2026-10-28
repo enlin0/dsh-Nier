@@ -1,0 +1,6 @@
+# 默认配置由 lib/index.js 的 Config 声明；请在插件页「配置」中修改。
+# 这里不要写 config：dsh 首次保存设置时会把此处整段配置复制到用户配置，
+# 导致每一项都显示为「已覆盖」。
+- insert:
+    - id: nier-splash
+      name: dsh-nier-splash

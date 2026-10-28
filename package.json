@@ -1,0 +1,59 @@
+{
+  "name": "dsh-nier-splash",
+  "description": "NieR:Automata / YoRHa style boot splash: a code-drawn CRT self-check log plays while the harness boots, then collapses like a CRT powering off.",
+  "version": "0.1.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "icon": "./icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enlin0/dsh-Nier.git"
+  },
+  "homepage": "https://github.com/enlin0/dsh-Nier",
+  "bugs": {
+    "url": "https://github.com/enlin0/dsh-Nier/issues"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/splash.css",
+    "lib/splash.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "screenshots.json",
+    "assets/icon-180.png",
+    "assets/icon-512.png",
+    "assets/screenshot-1.png",
+    "assets/screenshot-2.png",
+    "assets/screenshot-3.png"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "dsh-bundle",
+    "splash-screen",
+    "boot-splash",
+    "nier",
+    "nier-automata",
+    "yorha"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  }
+}
