@@ -59,8 +59,24 @@
     scanlines: q.get('scanlines') !== '0',
     accent: q.get('accent') || '#b3272d',
     serial: q.get('serial') || 'YORHA-OS / UNIT 2B-042',
+    captionPalette: q.get('captionPalette') || 'auto',
     reducedMotion: q.get('reduced') === '1' ? true : undefined,
   };
+
+  // `?shell=theme` fakes a theme plugin (Rhine Lab colours): a saturated
+  // sidebar fill that our splash must not overwrite.
+  if (q.get('shell') === 'theme') {
+    document.body.style.setProperty('--dsw-specific-sidebar-fill', '#123b3f');
+    document.body.style.setProperty('--dsw-alias-label-primary', '#8fd8d2');
+  }
+
+  // `?rival=1` fakes another boot overlay already owning the screen.
+  if (q.get('rival') === '1') {
+    var rival = document.createElement('div');
+    rival.id = 'rhine-splash';
+    rival.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#0b0f10';
+    document.body.append(rival);
+  }
 
   if (q.get('debug') === '1') {
     var dbg = document.createElement('div');

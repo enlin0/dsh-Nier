@@ -30,7 +30,7 @@ dsh plugin --profile desktop add "https://github.com/enlin0/dsh-Nier"
 
 装好后每次启动 Harness 都会先播一遍。启动过程中页面若自己刷新一次，60 秒内不会重播（这个保护可用 `replayOnReload` 关掉）。
 
-和别的开屏插件（例如 dsh-rhine-splash，它的 `z-index` 比本插件高）同时启用时只会看见其中一层，同一时间只留一个开屏插件即可。
+和别的开屏插件（例如 dsh-rhine-splash）同时启用时，只要对方的浮层先出现在页面上，本插件就自动让位、不挂载——不需要手动二选一，也不用担心谁压住谁。详见下面的「与其他开屏 / 主题插件共存」。
 
 ## 截图
 
@@ -54,6 +54,15 @@ dsh plugin --profile desktop add "https://github.com/enlin0/dsh-Nier"
 | `scanlines` | `true` | 是否画 CRT 扫描线 |
 | `accent` | `#b3272d` | 强调色（LOADING 的红、warn 行） |
 | `serial` | `YORHA-OS / UNIT 2B-042` | 左下角编号 |
+| `captionPalette` | `auto` | 标题栏按钮配色：`auto` 时如果别的插件已经改过外壳配色就不覆盖；`on` 强制借用；`off` 完全不碰 |
+
+### 与其他开屏 / 主题插件共存
+
+本插件刻意排在后面，不抢别人的配置：
+
+- 页面上已经存在别的开屏浮层（例如 dsh-rhine-splash，它的 `z-index` 更高）时，脚本直接不挂载，4.5 秒也不会在下面白播一遍。
+- 标题栏那三个原生按钮的配色是借外壳的 CSS 变量实现的。默认 `auto`：只有当外壳配色还是系统中性的深灰时才借；已经被主题插件改成别的颜色（比如莱茵生命的青绿）就不动，播完也不会残留。
+- 想强制用自己的深色配色，把 `captionPalette` 设成 `on`。
 
 ## 本地预览
 
@@ -63,9 +72,11 @@ dsh plugin --profile desktop add "https://github.com/enlin0/dsh-Nier"
 
 ```
 preview/index.html?duration=6000&lang=en&exit=glitch
-preview/index.html?replay=0      # 体验真实的“刷新不重播”保护
-preview/index.html?debug=1        # 叠加 t / opacity / 行数 / 进度 的诊断条
-preview/index.html?reduced=1      # 模拟 prefers-reduced-motion
+preview/index.html?replay=0        # 体验真实的“刷新不重播”保护
+preview/index.html?debug=1         # 叠加 t / opacity / 行数 / 进度 的诊断条
+preview/index.html?reduced=1       # 模拟 prefers-reduced-motion
+preview/index.html?shell=theme     # 模拟主题插件已改过外壳配色（本插件应不覆盖）
+preview/index.html?rival=1         # 模拟已有别的开屏浮层（本插件应让位、不挂载）
 ```
 
 ## 目录结构

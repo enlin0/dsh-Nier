@@ -1,5 +1,6 @@
 {
   "name": "dsh-nier-splash",
+  "version": "0.1.2",
   "description": "NieR:Automata / YoRHa 风格的开机画面。",
   "license": "MIT",
   "type": "module",
