@@ -1,7 +1,6 @@
 {
   "name": "dsh-nier-splash",
-  "description": "NieR:Automata / YoRHa style boot splash: a code-drawn CRT self-check log plays while the harness boots, then collapses like a CRT powering off.",
-  "version": "0.1.1",
+  "description": "NieR:Automata / YoRHa 风格的开机画面。",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
