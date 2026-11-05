@@ -8,11 +8,11 @@
   "icon": "./icon.svg",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/enlin0/dsh-Nier.git"
+    "url": "git+https://github.com/enlin0/dsh-nier-splash.git"
   },
-  "homepage": "https://github.com/enlin0/dsh-Nier",
+  "homepage": "https://github.com/enlin0/dsh-nier-splash",
   "bugs": {
-    "url": "https://github.com/enlin0/dsh-Nier/issues"
+    "url": "https://github.com/enlin0/dsh-nier-splash/issues"
   },
   "exports": {
     ".": "./lib/index.js",
@@ -46,14 +46,6 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
-    }
-  },
-  "peerDependencies": {
-    "@deepseek-ai/schemastery": "^3.18.0"
-  },
-  "peerDependenciesMeta": {
-    "@deepseek-ai/schemastery": {
-      "optional": true
     }
   }
 }
