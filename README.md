@@ -23,7 +23,7 @@
 ```powershell
 dsh plugin --profile desktop add "D:\Desktop\dsh-Nier"
 # 也可以直接给仓库地址
-dsh plugin --profile desktop add "https://github.com/enlin0/dsh-nier-splash"
+dsh plugin --profile desktop add "https://github.com/enlin0/dsh-Nier"
 ```
 
 > Harness 运行时会锁住配置，装完不退出重启是不会生效的；单纯刷新页面也不行。
@@ -104,16 +104,16 @@ docs/               README 用的静帧与动图
 - 市场截图写在仓库自己的 `screenshots.json`，位图图标放 `assets/`
 - MIT
 
-投稿到 awesome-dsh-plugin 时，这个仓库对应的条目是 `data/plugins/enlin0__dsh-nier-splash.yml`：
+投稿到 awesome-dsh-plugin 时，这个仓库对应的条目是 `data/plugins/enlin0__dsh-Nier.yml`：
 
 ```yaml
-url: https://github.com/enlin0/dsh-nier-splash
-name: enlin0/dsh-nier-splash
+url: https://github.com/enlin0/dsh-Nier
+name: enlin0/dsh-Nier
 category: theme
 description:
   en: 'NieR:Automata YoRHa style boot splash: a code-drawn CRT self-check log plays while the harness starts, then collapses like a CRT powering off.'
   zh: '《尼尔：机械纪元》YoRHa 风格开机动画：启动时播放一段由代码绘制的 CRT 自检日志，最后像 CRT 关机一样收束退场。'
-icon: https://raw.githubusercontent.com/enlin0/dsh-nier-splash/main/assets/icon-180.png
+icon: https://raw.githubusercontent.com/enlin0/dsh-Nier/main/assets/icon-180.png
 ```
 
 另外仓库需要打上 `dsh-plugin` topic、并且创建满 1 天——这两条在 GitHub 那边设置，不在代码里。

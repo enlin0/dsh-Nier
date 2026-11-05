@@ -8,11 +8,11 @@
   "icon": "./icon.svg",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/enlin0/dsh-nier-splash.git"
+    "url": "git+https://github.com/enlin0/dsh-Nier.git"
   },
-  "homepage": "https://github.com/enlin0/dsh-nier-splash",
+  "homepage": "https://github.com/enlin0/dsh-Nier",
   "bugs": {
-    "url": "https://github.com/enlin0/dsh-nier-splash/issues"
+    "url": "https://github.com/enlin0/dsh-Nier/issues"
   },
   "exports": {
     ".": "./lib/index.js",
